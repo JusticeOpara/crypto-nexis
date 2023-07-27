@@ -27,7 +27,7 @@ function App() {
     })
   }, [url])
 
-console.log(coins,"---coingecko.com")
+  console.log(coins, "---coingecko.com")
 
 
   return (
