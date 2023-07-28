@@ -1,14 +1,12 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import {auth, db} from '../firebase'
-import {
-    createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged
+import {createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged
 } from 'firebase/auth'
 
 import {doc, setDoc} from 'firebase/firestore' 
 
 const UserContext = createContext()
 
-//enabling user login and sign up and then create a watch list array where list of coins will be stored when favourited
 
 export const AuthContextProvider = ({children}) => {
     const [user, setUser] = useState({});
