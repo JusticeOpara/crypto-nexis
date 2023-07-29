@@ -1,7 +1,7 @@
-// themeSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 
 const getInitialTheme = () => {
+
   if (typeof window !== 'undefined' && window.localStorage) {
     const storedPrefs = window.localStorage.getItem('color-theme');
     if (typeof storedPrefs === 'string') {
@@ -12,24 +12,25 @@ const getInitialTheme = () => {
     if (userMedia.matches) {
       return 'dark';
     }
+
   }
   return 'light';
 };
+// intialState:{
+//   mode:JSON.parse(localStorage.getItem("darkMode")) || false
+// },
+
 
 const themeSlice = createSlice({
   name: 'theme',
-  initialState: getInitialTheme(),
+
+  initialState: {
+    currentTheme: getInitialTheme(),
+  },
+
   reducers: {
-    setTheme: (state, action) => {
-      const theme = action.payload;
-      state = theme;
-      const root = window.document.documentElement;
-      const isDark = theme === 'dark';
-
-      root.classList.remove(isDark ? 'light' : 'dark');
-      root.classList.add(theme);
-
-      localStorage.setItem('color-theme', theme);
+    setTheme(state, action) {
+      state.currentTheme = action.payload;
     },
   },
 });

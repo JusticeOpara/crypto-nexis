@@ -1,16 +1,17 @@
 import Navbar from './components/Navbar';
 import { Routes, Route } from 'react-router-dom';
-import { ThemeProvider } from './context/ThemeContext';
+import ThemeProvider from './context/ThemeProvider';
 import Home from './pages/Home';
 import Account from './pages/Account';
-import Signin from './pages/SiginIn';
+import Login from './pages/Login';
 import Signup from './pages/Signup';
 import CoinPage from './pages/CoinPage';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { AuthContextProvider } from './context/AuthContext';
 import FadeLoader from 'react-spinners/FadeLoader'
-import { BrowserRouter } from 'react-router-dom'
+
+
 
 function App() {
   const [coins, setCoins] = useState([])
@@ -31,38 +32,36 @@ function App() {
 
 
   return (
-    <BrowserRouter>
-
-      <ThemeProvider>
-
-        <AuthContextProvider>
-
-          <Navbar />
-          {loading ? <Routes>
-            <Route path='/' element={<Home coins={coins} />} />
-            <Route path='/signin' element={<Signin />} />
-            <Route path='/signup' element={<Signup />} />
-            <Route path='/account' element={<Account />} />
-
-            <Route path='/coin/:coinId' element={<CoinPage />}>
-              <Route path=':coindId' />
-            </Route>
 
 
 
-          </Routes> : <div className="flex flex-col w-fit mx-auto mt-[40%] md:mt-[15%]"  >
 
-            <FadeLoader speedMultiplier="1" size={15} color='yellow' className='' />
-            <p className='italic font-semibold'> loading... </p>
-          </div>}
+    <AuthContextProvider>
+      <ThemeProvider >
+        <Navbar />
+        {loading ? <Routes>
+          <Route path='/' element={<Home coins={coins} />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/signup' element={<Signup />} />
+          <Route path='/account' element={<Account />} />
 
+          <Route path='/coin/:coinId' element={<CoinPage />}>
+            <Route path=':coindId' />
+          </Route>
 
-        </AuthContextProvider>
+        </Routes> : <div className="flex flex-col w-fit mx-auto mt-[40%] md:mt-[15%]"  >
 
+          <FadeLoader speedMultiplier="1" size={15} color='yellow' className='' />
+          <p className='italic font-semibold'> loading... </p>
+        </div>}
       </ThemeProvider>
 
 
-    </BrowserRouter>
+    </AuthContextProvider>
+
+    //  
+
+
 
   );
 }

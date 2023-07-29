@@ -8,7 +8,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
-
 const DisplayingErrorMessagesSchema = Yup.object().shape({
 
   email: Yup.string()
@@ -24,13 +23,11 @@ const DisplayingErrorMessagesSchema = Yup.object().shape({
 
 const Signup = () => {
 
-
   const navigate = useNavigate();
   const { signUp } = UserAuth();
 
-  const handleSignup = async (e) => {
-    e.preventDefault()
-
+  const handleSignup = async () => {
+  
     try {
       await signUp(email, password)
       navigate('/account')
@@ -40,9 +37,6 @@ const Signup = () => {
         position: toast.POSITION.TOP_RIGHT
       });
       // console.log(error, "-TOASTERROR")
-
-
-
 
     }
   }
@@ -129,7 +123,7 @@ const Signup = () => {
           </Formik>
 
 
-          <p> Already have an account? <Link to='/signin' className='text-green-700 font-bold'> Sign In </Link>  </p>
+          <p> Already have an account? <Link to='/signin' className='text-green-700 font-bold'> Login </Link>  </p>
 
         </div>
       </div>

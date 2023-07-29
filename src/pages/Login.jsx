@@ -19,16 +19,11 @@ const DisplayingErrorMessagesSchema = Yup.object().shape({
     .required('Required'),
 });
 
-const SignIn = () => {
-
-  
+const Login = () => {
   const navigate = useNavigate();
   const { signIn } = UserAuth();
 
-
-
-  const handleSigin = async (e) => {
-    e.preventDefault();
+  const handleSigin = async () => {
 
     try {
       await signIn(email, password)
@@ -38,21 +33,16 @@ const SignIn = () => {
     } catch (error) {
       toast.error("Error: " + error.message, {
         position: toast.POSITION.TOP_RIGHT
-    });
+      });
 
 
     }
   }
 
-
-
-
-
-
   return (
     <div>
       <div className='max-w-[400px] mx-auto min-h-[600px] px-4 py-20'>
-        <h1 className='text-2xl font-bold text-center'> Sign In </h1>
+        <h1 className='text-2xl font-bold text-center'> Login </h1>
 
         <ToastContainer />
         <Formik
@@ -129,4 +119,4 @@ const SignIn = () => {
   )
 }
 
-export default SignIn
+export default Login

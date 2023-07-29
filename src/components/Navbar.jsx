@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import ThemeToggle from './ThemeToggle'
+// import ThemeToggle from './ThemeToggle'
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai'
 import { UserAuth } from '../context/AuthContext'
 import { FaBitcoin } from 'react-icons/fa'
+import ThemeToggler from './ThemeToggler'
 
 const Navbar = () => {
     const { user, logout } = UserAuth()
@@ -24,13 +25,13 @@ const Navbar = () => {
     }
 
     return (
-        <div className=' flex items-center justify-between h-20 font-bold shadow-2xl '>
+        <div className=' flex items-center justify-between h-20 font-bold shadow-lg '>
             <Link to='/'>
                 <h1 className='text-2xl flex items-center '> Cryptocère<span className='ml-2 text-yellow-500'> <FaBitcoin /> </span> </h1>
             </Link>
 
             <div className='hidden md:block'>
-                <ThemeToggle />
+                <ThemeToggler />
             </div>
 
             {user?.email ? (
@@ -40,7 +41,7 @@ const Navbar = () => {
                 </div>
             ) : (
                 <div className='hidden md:block'>
-                    <Link to='/signin' className='p-4 hover:text-accent'>Sign In</Link>
+                    <Link to='/login' className='p-4 hover:text-accent'>Login</Link>
                     <Link to='/signup' className='bg-button text-btnText px-5 py-2 rounded-2xl shadow-lg hover:shadow-2xl' >Sign Up</Link>
                 </div>)}
 
@@ -53,7 +54,7 @@ const Navbar = () => {
             <div className={nav ? 'leading-loose text-center    text-xl  absolute  left-0  top-0   w-full  mx-auto z-10    flex h-full   mt-20  bg-primary ease-in-out   flex-col' : 'absolute left-[-100%]   '
             }>
                 <ul onClick={handleNav} className='w-full p-4 mt-[20%] '>
-                    <li className='  w-fit mx-auto '>  <ThemeToggle /> </li>
+                    <li className='  w-fit mx-auto '>  <ThemeToggler /> </li>
                     <li className='   w-fit mx-auto'> <Link to='/'> Home </Link> </li>
                     {/* <li className='border-b py-6'> <Link to='/account'> Account </Link> </li> */}
 
@@ -63,7 +64,7 @@ const Navbar = () => {
                     {user?.email ? (
                         <div onClick={handleNav} className='flex flex-col'>
                             <Link to='/account' className='  w-fit mx-auto'>Account </Link>
-                            <button onClick={handleSignOut} className='p-4  w-fit mx-auto '> Sign out</button>
+                            <button onClick={handleSignOut} className='p-4 w-fit mx-auto'> Sign out</button>
                         </div>
                     ) : (
                         <div onClick={handleNav} className='md:hidden flex flex-col  '>
