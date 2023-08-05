@@ -1,19 +1,19 @@
 import Navbar from './components/Navbar';
 import { Routes, Route } from 'react-router-dom';
-import ThemeProvider from './context/ThemeProvider';
-import Home from './pages/Home';
-import Account from './pages/Account';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
-import CoinPage from './pages/CoinPage';
+import {Home,Account,Login,Signup,CoinPage} from "./pages"
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { AuthContextProvider } from './context/AuthContext';
 import FadeLoader from 'react-spinners/FadeLoader'
+import { useSelector } from 'react-redux';
+import Footer from './components/Footer';
 
 
 
 function App() {
+  const themeMode = useSelector(state => state.theme.themeMode)
+  console.log(themeMode, "--themeMode");
+
   const [coins, setCoins] = useState([])
   const [loading, setLoading] = useState(false)
   const [currentpage, setCurrentpage] = useState(1)
@@ -23,7 +23,7 @@ function App() {
   useEffect(() => {
     axios.get(url).then((response) => {
       setCoins(response.data)
-      // console.log(response.data)
+
       setLoading(true)
     })
   }, [url])
@@ -32,13 +32,12 @@ function App() {
 
 
   return (
+    <div className={`bg-primary ${themeMode}`} >
 
+      <AuthContextProvider>
 
-
-
-    <AuthContextProvider>
-      <ThemeProvider >
         <Navbar />
+
         {loading ? <Routes>
           <Route path='/' element={<Home coins={coins} />} />
           <Route path='/login' element={<Login />} />
@@ -54,13 +53,11 @@ function App() {
           <FadeLoader speedMultiplier="1" size={15} color='yellow' className='' />
           <p className='italic font-semibold'> loading... </p>
         </div>}
-      </ThemeProvider>
+        <Footer />
 
+      </AuthContextProvider>
 
-    </AuthContextProvider>
-
-    //  
-
+    </div>
 
 
   );

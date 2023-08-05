@@ -44,8 +44,7 @@ const Signup = () => {
 
 
   return (
-    <div>
-      <div>
+    
         <div className='max-w-[400px] mx-auto min-h-[600px] px-4 py-20'>
           <h1 className='text-2xl font-bold text-center'> Sign Up </h1>
           {/* {error ? <p className='bg-red-300 my-2'>{setError} </p> : null} */}
@@ -126,8 +125,7 @@ const Signup = () => {
           <p> Already have an account? <Link to='/signin' className='text-green-700 font-bold'> Login </Link>  </p>
 
         </div>
-      </div>
-    </div>
+     
   )
 }
 

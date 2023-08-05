@@ -1,16 +1,23 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-// import ThemeToggle from './ThemeToggle'
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai'
 import { UserAuth } from '../context/AuthContext'
 import { FaBitcoin } from 'react-icons/fa'
-import ThemeToggler from './ThemeToggler'
+import { changeTheme } from '../store/themeSlice'
+import { useSelector, useDispatch } from 'react-redux'
+import { Switch } from "antd";
+
+
 
 const Navbar = () => {
+    const themeMode = useSelector((state) => state.theme.themeMode)
+
+    const dispatch = useDispatch();
+    const [theme, setTheme] = useState(null)
     const { user, logout } = UserAuth()
     const [nav, setNav] = useState(false)
     const navigate = useNavigate
-    
+
     const handleNav = () => {
         setNav(!nav)
     }
@@ -24,14 +31,38 @@ const Navbar = () => {
         }
     }
 
+    const handleThemeChange = (value) => {
+        const mode = value ? "dark" : "light";
+
+        localStorage.setItem("themeMode", JSON.stringify(mode));
+        setTheme(mode);
+    };
+
+    useEffect(() => {
+        let currentTheme = JSON.parse(localStorage.getItem("themeMode"));
+        console.log(currentTheme, "--currentTheme")
+
+        dispatch(changeTheme(currentTheme ? currentTheme : "light"));
+
+        // eslint-disable-next-line
+    }, [theme]);
+
     return (
         <div className=' flex items-center justify-between h-20 font-bold shadow-lg '>
             <Link to='/'>
                 <h1 className='text-2xl flex items-center '> Cryptocère<span className='ml-2 text-yellow-500'> <FaBitcoin /> </span> </h1>
             </Link>
 
-            <div className='hidden md:block'>
-                <ThemeToggler />
+            <div className='hidden md:block shadow'>
+
+                <Switch
+                    checked={themeMode === "dark" }
+                    onChange={handleThemeChange}
+                    checkedChildren="Dark"
+                    unCheckedChildren="Light"
+                   
+                />
+
             </div>
 
             {user?.email ? (
@@ -51,11 +82,18 @@ const Navbar = () => {
             </div>
 
 
-            <div className={nav ? 'leading-loose text-center    text-xl  absolute  left-0  top-0   w-full  mx-auto z-10    flex h-full   mt-20  bg-primary ease-in-out   flex-col' : 'absolute left-[-100%]   '
+            <div className={nav ? 'leading-loose text-center text-xl absolute left-0 top-0 w-full mx-auto z-10 flex h-full mt-20 bg-primary ease-in-out flex-col' : 'absolute left-[-100%]'
             }>
                 <ul onClick={handleNav} className='w-full p-4 mt-[20%] '>
-                    <li className='  w-fit mx-auto '>  <ThemeToggler /> </li>
-                    <li className='   w-fit mx-auto'> <Link to='/'> Home </Link> </li>
+                    <li className='w-fit mx-auto '>
+                        <Switch
+                            checked={themeMode === "dark"}
+                            onChange={handleThemeChange}
+                            checkedChildren="Dark"
+                            unCheckedChildren="Light"
+                        />
+                    </li>
+                    <li className='w-fit mx-auto'> <Link to='/'> Home </Link> </li>
                     {/* <li className='border-b py-6'> <Link to='/account'> Account </Link> </li> */}
 
                 </ul>

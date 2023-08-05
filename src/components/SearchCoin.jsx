@@ -6,7 +6,7 @@ const SearchCoin = ({ coins }) => {
     const [searchCoins, setSearchCoins] = useState('')
 
     return (
-        <div className='rounded my-4 px-5'>
+        <div className='rounded my-4 px-5 bg-primary'>
             <div className='flex flex-col justify-between pt-4 pb-6 text-center  mb-4 md:mb-8 '>
                 <h1 className='text-2xl font-bold my-2'> Search Coins</h1>
                 <form>

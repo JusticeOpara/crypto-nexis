@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { setTheme } from '../store/theme-slice';
+import { setTheme } from '../store/themeSlice';
 
 
 const getInitialTheme = () => {
@@ -28,6 +28,7 @@ const ThemeProvider = ({ initialTheme, children }) => {
 
     useEffect(() => {
         const theme = initialTheme || getInitialTheme();
+        console.log(theme,"--theme[initialtheme]||getIntialTheme")
         dispatch(setTheme(theme));
     }, [dispatch, initialTheme]);
 
