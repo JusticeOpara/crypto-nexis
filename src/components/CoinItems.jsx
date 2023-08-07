@@ -60,17 +60,14 @@ const CoinItems = ({ coin }) => {
       <td className='w-[180px] hidden md:table-cell'> ${coin.total_volume.toLocaleString()} </td>
       <td className='w-[180px] hidden sm:table-cell'> $ {coin.market_cap.toLocaleString()} </td>
       <td >
-        <Sparklines data={coin.sparkline_in_7d ?.current_price}> {coin.market_data?.sparkline_7d.current_price}
+        
+        <Sparklines data={coin.sparkline_in_7d?.price}>
           <SparklinesLine color='teal' />
         </Sparklines>
-        {/* <Sparklines data={coin.sparkline_in_7d ?.price}> {coin.market_data ?.sparkline_in_7d.price}
-          <SparklinesLine color='teal' />
-        </Sparklines> */}
-
       </td>
 
 
-    </tr>
+    </tr >
 
   )
 }
