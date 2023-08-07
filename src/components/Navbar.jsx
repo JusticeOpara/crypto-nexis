@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai'
 import { UserAuth } from '../context/AuthContext'
-import { FaBitcoin } from 'react-icons/fa'
 import { changeTheme } from '../store/themeSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import { Switch } from "antd";
@@ -14,7 +13,8 @@ const Navbar = () => {
 
     const dispatch = useDispatch();
     const [theme, setTheme] = useState(null)
-    const { user, logout } = UserAuth()
+     const { user, logout } = UserAuth()
+     console.log(user,"---USER")
     const [nav, setNav] = useState(false)
     const navigate = useNavigate
 
@@ -44,22 +44,23 @@ const Navbar = () => {
 
         dispatch(changeTheme(currentTheme ? currentTheme : "light"));
 
-        // eslint-disable-next-line
+    
     }, [theme]);
 
     return (
-        <div className=' flex items-center justify-between h-20 font-bold shadow-lg '>
+        <div className=' flex items-center justify-between h-14 font-bold shadow-lg px-6 '>
             <Link to='/'>
-                <h1 className='text-2xl flex items-center '> Cryptocère<span className='ml-2 text-yellow-500'> <FaBitcoin /> </span> </h1>
+                <h1 className='text-2xl flex items-center text-primary '> Cryptocère </h1>
             </Link>
 
-            <div className='hidden md:block shadow'>
+            <div className='hidden md:block '>
 
                 <Switch
                     checked={themeMode === "dark" }
                     onChange={handleThemeChange}
                     checkedChildren="Dark"
                     unCheckedChildren="Light"
+                    className=' bg-black'
                    
                 />
 

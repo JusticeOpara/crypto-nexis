@@ -1,7 +1,7 @@
 import React from 'react'
 import { AiOutlineMail, AiFillLock } from 'react-icons/ai'
 import { Link, useNavigate } from 'react-router-dom'
-import { UserAuth } from '../context/AuthContext'
+ import { UserAuth } from '../context/AuthContext'
 // import toast, { Toaster } from 'react-hot-toast';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup'
@@ -12,23 +12,24 @@ import { ToastContainer, toast } from 'react-toastify';
 
 const DisplayingErrorMessagesSchema = Yup.object().shape({
   password: Yup.string()
-    .required('No password provided.')
-    .min(8, 'Password is too short - should be 8 chars minimum.')
-    .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.'),
+    .required('No password provided')
+    .min(8, 'Password is too short - should be 8 chars minimum')
+    .matches(/[a-zA-Z]/, 'Password can only contain Latin letters'),
   email: Yup.string().email('Invalid email')
     .required('Required'),
 });
 
-const Login = () => {
-  const navigate = useNavigate();
-  const { signIn } = UserAuth();
 
-  const handleSigin = async () => {
+const Login = () => {
+
+  const navigate = useNavigate();
+   const { signIn } = UserAuth();
+
+  const handleSigin = async (values) => {
 
     try {
-      await signIn(email, password)
+      await signIn(values.email, values.password)
       navigate('/')
-
 
     } catch (error) {
       toast.error("Error: " + error.message, {
@@ -40,9 +41,9 @@ const Login = () => {
   }
 
   return (
-    <div>
-      <div className='max-w-[400px] mx-auto min-h-[600px] px-4 py-20'>
-        <h1 className='text-2xl font-bold text-center'> Login </h1>
+    <div className='mx-auto max-w-[400px]  shadow-2xl mt-4 rounded-[16px] h-[450px] px-4 bg-primary '>
+
+        <h1 className='text-2xl font-bold text-center pt-4'> Login </h1>
 
         <ToastContainer />
         <Formik
@@ -57,9 +58,9 @@ const Login = () => {
 
             <Form>
 
-              <div className='py-4'>
+              <div className='py-2'>
 
-                <label> Email </label>
+                <label className='font-medium'> Email </label>
                 <div className='my-2 w-full relative rounded-2xl shadow-xl'>
 
                   <input className='w-full p-2 bg-primary border-input rounded-2xl'
@@ -73,15 +74,15 @@ const Login = () => {
 
                   {/* If this field has been touched, and it contains an error, display it */}
 
-                  {touched.email && errors.email && <div className="error">{errors.email}</div>}
+                  {touched.email && errors.email && <div className="text-red-400 flex justify-end text-sm my-2 mr-2">{errors.email}</div>}
+   
                 </div>
 
               </div>
 
 
-
               <div className='my-4'>
-                <label> Password </label>
+                <label className='font-medium'> Password </label>
                 <div className='my-2 w-full relative rounded-2xl shadow-xl'>
 
                   <input className='w-full p-2 bg-primary border-input rounded-2xl'
@@ -95,7 +96,7 @@ const Login = () => {
 
                   {/* If this field has been touched, and it contains an error, display it*/}
 
-                  {touched.password && errors.password && <div className="error">{errors.password}</div>}
+                  {touched.password && errors.password && <div className="text-red-400 flex justify-end text-sm my-2 mr-2 ">{errors.password}</div>}
 
                 </div>
               </div>
@@ -114,8 +115,8 @@ const Login = () => {
 
         <p> Don't have an account? <Link to='/signup' className='text-red-700 font-bold'> Sign Up </Link>  </p>
 
-      </div>
     </div>
+
   )
 }
 

@@ -32,9 +32,9 @@ function App() {
 
 
   return (
-    <div className={`bg-primary ${themeMode}`} >
+    <div className={`bg-primary text-primary ${themeMode}`} >
 
-      <AuthContextProvider>
+       <AuthContextProvider> 
 
         <Navbar />
 
@@ -55,7 +55,7 @@ function App() {
         </div>}
         <Footer />
 
-      </AuthContextProvider>
+     </AuthContextProvider> 
 
     </div>
 

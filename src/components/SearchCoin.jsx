@@ -6,9 +6,9 @@ const SearchCoin = ({ coins }) => {
     const [searchCoins, setSearchCoins] = useState('')
 
     return (
-        <div className='rounded my-4 px-5 bg-primary'>
+        <div className='rounded my-4 px-5 bg-primary text-primary'>
             <div className='flex flex-col justify-between pt-4 pb-6 text-center  mb-4 md:mb-8 '>
-                <h1 className='text-2xl font-bold my-2'> Search Coins</h1>
+                <h1 className='text-2xl font-bold my-2 text-primary'> Search Coins</h1>
                 <form>
                     <input onChange={(e) => setSearchCoins(e.target.value)} type='text' placeholder="Search"
                         className='w-1/2 bg-primary border-input border-[0.5px]  py-1  text-center rounded-2xl shadow-xl'>

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { FaBitcoin } from 'react-icons/fa'
 import axios from 'axios'
 import { AiFillFire } from "react-icons/ai"
 
@@ -33,8 +32,9 @@ const Trending = () => {
                                 </div>
                             </div>
                             <div>
-                                <FaBitcoin className='text-yellow-600 items-center' />
+                               
                                 <p> {coin.item.price_btc.toFixed(7)}</p>
+
                             </div>
 
                         </div>

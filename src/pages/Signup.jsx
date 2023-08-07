@@ -1,12 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { AiOutlineMail, AiFillLock } from 'react-icons/ai'
 import { Link, useNavigate } from 'react-router-dom'
- import { UserAuth } from '../context/AuthContext'
 import { Formik, Form, Field, validateYupSchema } from 'formik';
 import * as Yup from 'yup';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { UserAuth } from '../context/AuthContext'
 
 const DisplayingErrorMessagesSchema = Yup.object().shape({
 
@@ -22,21 +21,20 @@ const DisplayingErrorMessagesSchema = Yup.object().shape({
 
 
 const Signup = () => {
-
   const navigate = useNavigate();
   const { signUp } = UserAuth();
 
-  const handleSignup = async () => {
-  
+  const handleSignup = async (values) => {
+
     try {
-      await signUp(email, password)
+      await signUp(values.email, values.password)
       navigate('/account')
     } catch (error) {
 
-      toast.error("Error: " + error.message, {
-        position: toast.POSITION.TOP_RIGHT
-      });
-      // console.log(error, "-TOASTERROR")
+      // toast.error("Error: " + error.message, {
+      //   position: toast.POSITION.TOP_RIGHT
+      // });
+      console.log(error, "-TOASTERROR")
 
     }
   }
@@ -44,88 +42,88 @@ const Signup = () => {
 
 
   return (
-    
-        <div className='max-w-[400px] mx-auto min-h-[600px] px-4 py-20'>
-          <h1 className='text-2xl font-bold text-center'> Sign Up </h1>
-          {/* {error ? <p className='bg-red-300 my-2'>{setError} </p> : null} */}
-          <ToastContainer />
-          <Formik
-            initialValues={{
-              email: '',
-              password: '',
-            }}
+    <div className='mx-auto max-w-[400px] shadow-2xl mt-4 rounded-[16px] h-[450px] px-4  '>
 
-            validationSchema={DisplayingErrorMessagesSchema}
+      <h1 className='text-2xl font-bold text-center pt-4'> Sign Up </h1>
 
-            onSubmit={handleSignup}
-          >
+      <ToastContainer />
+      <Formik
+        initialValues={{
+          email: '',
+          password: '',
+        }}
 
-            {({ errors, touched, isValid, handleChange, handleBlur, handleSubmit, isSubmitting }) => {
+        validationSchema={DisplayingErrorMessagesSchema}
 
-              return <Form onSubmit={handleSubmit}>
+        onSubmit={handleSignup}
+      >
 
-                <div className='py-4'>
+        {({ errors, touched, isValid, handleChange, handleBlur, handleSubmit, isSubmitting }) => {
 
-                  <label> Email </label>
+          return <Form onSubmit={handleSubmit}>
 
-                  <div className='my-2 w-full relative rounded-2xl shadow-xl'>
+            <div className='py-4'>
 
-                    <input className='w-full p-2 bg-primary border-input rounded-2xl'
-                      type='email'
-                      name="email"
-                      placeholder="@mail"
-                      onBlur={handleBlur}
-                      onChange={handleChange} />
+              <label> Email </label>
 
-                    <AiOutlineMail className='absolute right-2 top-3' />
-                    {touched.email && errors.email && <div className="error">{errors.email}</div>}
+              <div className='my-2 w-full relative rounded-2xl shadow-xl'>
 
-                  </div>
+                <input className='w-full p-2 bg-primary border-input rounded-2xl'
+                  type='email'
+                  name="email"
+                  placeholder="@mail"
+                  onBlur={handleBlur}
+                  onChange={handleChange} />
 
-                </div>
+                <AiOutlineMail className='absolute right-2 top-3' />
+                {touched.email && errors.email && <div className="text-red-400 flex justify-end text-sm my-2 mr-2">{errors.email}</div>}
 
+              </div>
 
-
-                <div className='my-4'>
-
-                  <label> Password </label>
-
-                  <div className='my-2 w-full relative rounded-2xl shadow-xl'>
-
-                    <input className='w-full p-2 bg-primary border-input rounded-2xl'
-                      type='password'
-                      name="password"
-                      placeholder="password"
-                      onBlur={handleBlur}
-                      onChange={handleChange} />
-
-                    <AiFillLock className='absolute right-2 top-3' />
-                    {touched.password && errors.password && <div className="error">{errors.password}</div>}
-
-                  </div>
-
-                </div>
+            </div>
 
 
-                <button className='w-full my-2 p-3 bg-button text-btnText rounded-2xl shadow-xl' type="submit" disabled={!isValid}
-                  style={{ backgroundColor: !isValid ? 'gray' : 'blue' }}>
 
-                  {isSubmitting ? 'Creating account..' : 'Sign up'}
+            <div className='my-4'>
 
-                </button>
+              <label> Password </label>
+
+              <div className='my-2 w-full relative rounded-2xl shadow-xl'>
+
+                <input className='w-full p-2 bg-primary border-input rounded-2xl'
+                  type='password'
+                  name="password"
+                  placeholder="password"
+                  onBlur={handleBlur}
+                  onChange={handleChange} />
+
+                <AiFillLock className='absolute right-2 top-3' />
+                {touched.password && errors.password && <div className="text-red-400 flex justify-end text-sm my-2 mr-2">{errors.password}</div>}
+
+              </div>
+
+            </div>
 
 
-              </Form>
+            <button className='w-full my-2 p-3 bg-button text-btnText rounded-2xl shadow-xl' type="submit" disabled={!isValid}
+              style={{ backgroundColor: !isValid ? 'gray' : 'blue' }}>
 
-            }}
+              {isSubmitting ? 'Creating account..' : 'Sign up'}
 
-          </Formik>
+            </button>
 
 
-          <p> Already have an account? <Link to='/signin' className='text-green-700 font-bold'> Login </Link>  </p>
+          </Form>
 
-        </div>
-     
+        }}
+
+      </Formik>
+
+
+      <p> Already have an account? <Link to='/login' className='text-green-700 font-bold'> Login </Link>  </p>
+
+    </div>
+
   )
 }
 

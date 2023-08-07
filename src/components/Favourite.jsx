@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
  import {AiFillDelete} from 'react-icons/ai'
- import {doc, onSnapshot, updateDoc} from 'firebase/firestore'
- import {db} from '../firebase'
- import { UserAuth } from '../context/AuthContext'
+  import {doc, onSnapshot, updateDoc} from 'firebase/firestore'
+  import {db} from '../firebase'
+  import { UserAuth } from '../context/AuthContext'
   import { ToastContainer, toast } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
 
 const Favourite = () => {
     const [coins, setCoins] = useState([])
     const {user} = UserAuth()
+    console.log(user,"--User")
 
     useEffect(()=> {
         onSnapshot(doc(db, 'users',  `${user?.email}`), (doc) => {
@@ -33,7 +34,7 @@ const Favourite = () => {
   return (
     <div>
         {coins?.length ===0 ? (<p> 
-          <p> You are yet to favourite any coin, please  <Link to='/' className='text-green-400'> Click here to add </Link> </p>
+          <p className='text-primary'> You are yet to favourite any coin, please  <Link to='/' className='text-green-400'> Click here to add </Link> </p>
         </p>) : (
           <table className='w-full border-collapse text-center'> 
             <thead> 
